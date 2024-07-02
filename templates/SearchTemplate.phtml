@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resultados de la búsqueda de películas</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once "Header.phtml" ?>
+    <main>
+        <section class="category">
+            <h2><?php echo $titulo?></h2>
+            <div class="movies">
+                <?php foreach($movies as $movie):?>
+                    <a class="a-movies" href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                        <div class="movie">
+                            <h3> <?php echo $movie->{'nombre'}?> </h3>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    </main>
+    <?php require_once "Footer.phtml" ?>
+</body>
+</html>

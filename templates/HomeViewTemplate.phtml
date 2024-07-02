@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <?php require_once "header.phtml" ?>
+    <main>
+        <section class="hero">
+            <h2>Las mejores películas en MovieHunter</h2>
+            <p>¡Descubre una amplia selección de películas y series!</p>
+            <div>
+                <form id="form-genres" action="buscar" method="get">
+                    <div>
+                        <input type="checkbox" id="checkbox1" name="Terror"> 
+                        <label for="checkbox1">Terror</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox2" name="Thriller">
+                        <label for="checkbox2">Thriller</label> 
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox3" name="Crimen"> 
+                        <label for="checkbox3">Crimen</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox4" name="Drama"> 
+                        <label for="checkbox4">Drama</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox5" name="Comedia"> 
+                        <label for="checkbox5">Comedia</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox6" name="Biografico"> 
+                        <label for="checkbox6">Biografico</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox7" name="Belico"> 
+                        <label for="checkbox7">Belico</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox8" name="Accion"> 
+                        <label for="checkbox8">Accion</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox9" name="Suspenso"> 
+                        <label for="checkbox9">Suspenso</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox10" name="Fantasia"> 
+                        <label for="checkbox10">Fantasia</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox11" name="Aventura"> 
+                        <label for="checkbox11">Aventura</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox12" name="Ciencia Ficcion"> 
+                        <label for="checkbox12">Ciencia Ficcion</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox13" name="Animacion"> 
+                        <label for="checkbox13">Animacion</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox14" name="Romance"> 
+                        <label for="checkbox14">Romance</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox15" name="Catastrofe"> 
+                        <label for="checkbox15">Catastrofe</label>
+                    </div>
+                    <div>
+                        <input type="submit" value="Filtrar">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="category">
+                <div class="movies">
+                    <?php foreach ($movies as $movie) : ?>
+                        <a class="a-movies" href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                            <div class="movie">
+                                <h3><?php echo $movie->{'nombre'}?></h3>
+                                <?php if (AuthHelper::isAuthenticated()) : ?>
+                                    <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                    <form action="eliminarPelicula" method="POST">
+                                        <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                        <button type="submit" name="eliminar">Eliminar</button>
+                                    </form>
+                                    <form action="modificarPelicula" method="POST" >
+                                        <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                        <button type="submit" name="editar">Editar</button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+        </section>
+        <?php if (AuthHelper::isAuthenticated()) : ?>
+        <?php require_once "AddMoviesTemplate.phtml"; ?>
+    <?php endif; ?>
+    </main>
+    <?php require_once "Footer.phtml" ?>
+</body>
+</html>
